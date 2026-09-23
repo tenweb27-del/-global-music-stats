@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal Eloquence Meter - Global Music Stats</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#080808;z-index:20}
+.logo{font-weight:900}.logo span{color:#1DB954}
+.wrap{max-width:1250px;margin:auto;padding:20px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:18px}
+@media(max-width:1000px){.wrap{grid-template-columns:1fr}}
+.card{background:#121212;border:1px solid #1e1e1e;border-radius:18px;padding:16px;margin-bottom:14px}
+.meter-row{display:grid;grid-template-columns:1fr 60px;gap:10px;align-items:center;margin:12px 0}
+.bar{height:10px;background:#1a1a1a;border-radius:99px;overflow:hidden}
+.fill{height:100%;border-radius:99px}
+.score{font-weight:900;font-size:13px;text-align:right}
+.radar{width:100%;height:220px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:14px;display:grid;place-items:center;position:relative}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tag{font-size:10px;padding:3px 8px;border-radius:999px;font-weight:900;display:inline-block;margin-right:4px}
+.tag-rap{background:#1DB954;color:#000}.tag-sing{background:#a855f7;color:#fff}.tag-drill{background:#f59e0b;color:#000}.tag-spoken{background:#38bdf8;color:#000}
+.top20{display:flex;flex-direction:column;gap:8px;max-height:680px;overflow:auto}
+.item{display:flex;gap:10px;align-items:center;padding:10px;background:#0f0f0f;border:1px solid #1a1a1a;border-radius:12px}
+.item.top{border-color:#1DB954;background:linear-gradient(90deg,#1DB95415,#a855f715)}
+.rank{width:30px;height:30px;border-radius:999px;background:#1a1a1a;display:grid;place-items:center;font-weight:900;font-size:12px}
+.rank.gold{background:gold;color:#000}
+input,select,textarea{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#fff;padding:10px 12px;border-radius:10px;margin-top:6px}
+.btn{border:0;padding:10px 16px;border-radius:999px;font-weight:900;cursor:pointer}.btn-green{background:#1DB954;color:#000}.btn-dark{background:#1a1a1a;color:#fff;border:1px solid #2a2a2a}
+canvas{max-width:100%}
+</style>
+</head>
+<body>
+    <script src="nav.js"></script>
+<header>
+<div class="logo">GLOBAL <span>MUSIC STATS</span> • ELOQUENCE METER</div>
+<div><a href="charts.html" style="background:#1a1a1a;padding:8px 12px;border-radius:999px;color:#fff;text-decoration:none;font-size:12px">← Bar Meter</a></div>
+</header>
+
+<div style="background:linear-gradient(90deg,#1DB95411,#a855f711,#38bdf811);border-bottom:1px solid #1a1a1a;padding:16px 22px">
+<b style="letter-spacing:2px;font-size:11px;color:#1DB954">BAR METER ENGINE • SUB-WIDGET</b>
+<h1 style="font-size:26px;margin-top:4px">The Universal Eloquence Meter</h1>
+<p style="color:#888;font-size:13px;margin-top:6px;max-width:800px">Measures international crossover potential. Language is never a barrier — high-scoring global-facing artists rank top of exclusive Global Crossover Top 20. Works across rap, singing, melodic drill, spoken word.</p>
+</div>
+
+<div class="wrap">
+<!-- LEFT - ANALYZER -->
+<div>
+<div class="card">
+<h3>🎙️ Analyze Track — Crossover Potential</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+<div><label style="font-size:11px;color:#888">ARTIST NAME</label><input id="artist" placeholder="e.g. Amerado"></div>
+<div><label style="font-size:11px;color:#888">DELIVERY STYLE</label><select id="style"><option>Rap</option><option>Singing</option><option>Melodic Drill</option><option>Spoken Word</option><option>Afro-Fusion</option></select></div>
+</div>
+<label style="font-size:11px;color:#888;margin-top:10px;display:block">PASTE LYRICS (16+ bars)</label>
+<textarea id="lyrics" rows="5" placeholder="Paste English lyrics here... e.g. I came from the bottom, now the world hear my diction...">I came from the streets of Kumasi, my diction is clear,
+Global articulation, every word they can hear,
+Metaphor like sunrise over Volta lake,
+Flow so English, every border we break.</textarea>
+<button class="btn btn-green" style="width:100%;margin-top:12px;padding:12px" onclick="analyze()">Run Eloquence Analysis →</button>
+
+<div id="result" style="margin-top:16px"></div>
+</div>
+
+<div class="card">
+<h3>📊 Eloquence Radar — 4 Dimensions</h3>
+<canvas id="radar" width="320" height="220"></canvas>
+<div class="grid2" style="margin-top:10px;font-size:11px;color:#888">
+<div>🔤 <b>Flow:</b> Rhythm, cadence, breath control</div>
+<div>🗣️ <b>Diction:</b> Clarity, pronunciation</div>
+<div>🌍 <b>Articulation:</b> Global understandability</div>
+<div>💎 <b>Metaphor:</b> Wordplay sophistication</div>
+</div>
+</div>
+</div>
+
+<!-- RIGHT - GLOBAL CROSSOVER TOP 20 -->
+<div>
+<div class="card" style="border-color:#1DB954">
+<h3>🌍 Exclusive Global Crossover Top 20</h3>
+<p style="color:#666;font-size:11px;margin:4px 0 10px">Ranked by Eloquence Score — Language is never a barrier</p>
+<div class="top20" id="top20"></div>
+</div>
+
+<div class="card">
+<h3>Why This Matters</h3>
+<p style="color:#aaa;font-size:12px;line-height:1.6">
+- Ghana/Nigeria artists with perfect English diction now compete with US/UK<br>
+- Drill, Rap, Singing all graded same<br>
+- High Eloquence = More playlist, PR, radio in US/UK<br>
+- Auto-feeds into Breakthrough Accelerator (+10 bonus points for Top 5)
+</p>
+</div>
+</div>
+</div>
+
+<script>
+let tracks=[
+{name:"Sarkodie",song:"Otan",style:"Rap",flow:92,diction:94,artic:90,meta:88},
+{name:"Amerado",song:"Kwaku Ananse",style:"Rap",flow:89,diction:91,artic:87,meta:93},
+{name:"Asake",song:"Lonely At The Top",style:"Afro-Fusion",flow:88,diction:82,artic:84,meta:80},
+{name:"Central Cee",song:"Doja",style:"Melodic Drill",flow:90,diction:88,artic:92,meta:85},
+{name:"Kendrick Lamar",song:"Not Like Us",style:"Rap",flow:95,diction:92,artic:94,meta:96},
+{name:"King Promise",song:"Terminator",style:"Singing",flow:86,diction:89,artic:88,meta:78},
+{name:"Lyrical Joe",song:"5th August",style:"Rap",flow:93,diction:90,artic:86,meta:94},
+{name:"Kwesi Arthur",song:"Grind Day",style:"Rap",flow:87,diction:86,artic:85,meta:82},
+];
+function avg(t){return Math.round((t.flow+t.diction+t.artic+t.meta)/4)}
+function renderTop20(){
+let sorted=[...tracks].sort((a,b)=>avg(b)-avg(a));
+document.getElementById('top20').innerHTML=sorted.slice(0,20).map((t,i)=>`
+<div class="item ${i<3?'top':''}">
+<div class="rank ${i==0?'gold':''}">${i+1}</div>
+<div style="flex:1"><b style="font-size:13px">${t.name}</b><small style="display:block;color:#888;font-size:11px">${t.song} • <span class="tag tag-rap">${t.style}</span> • ${avg(t)} Eloquence</small>
+<div style="display:flex;gap:4px;margin-top:4px"><div class="bar" style="flex:1;height:4px"><div class="fill" style="width:${avg(t)}%;background:${i<3?'#1DB954':'#555'}"></div></div></div>
+</div>
+<div style="text-align:right"><b style="color:#1DB954">${avg(t)}</b><small style="display:block;color:#888;font-size:10px">CROSS</small></div>
+</div>
+`).join('');
+}
+function analyze(){
+let artist=document.getElementById('artist').value||"You";
+let style=document.getElementById('style').value;
+let lyrics=document.getElementById('lyrics').value||"";
+let words=lyrics.split(/\s+/).length;
+let flow=Math.min(95,60+words%40+Math.random()*10|0);
+let diction=70+Math.random()*25|0;
+let artic=68+Math.random()*27|0;
+let meta=lyrics.toLowerCase().includes('like')||lyrics.includes('as')?85+Math.random()*10|0:70+Math.random()*20|0;
+let total=Math.round((flow+diction+artic+meta)/4);
+let crossover=total>=85?'GLOBAL READY 🌍':total>=70?'CROSSOVER POTENTIAL 🚀':'LOCAL FOCUS — Work on diction';
+document.getElementById('result').innerHTML=`
+<div style="background:#0f0f0f;border:1px solid #1DB954;border-radius:14px;padding:12px">
+<b>${artist} — ${style} — ${crossover}</b><br>
+<small style="color:#888">Total Eloquence: ${total}/100 — ${words} words analyzed</small>
+<div class="meter-row"><span>English Lyrical Flow</span><div class="bar"><div class="fill" style="width:${flow}%;background:#1DB954"></div></div><span class="score">${flow}</span></div>
+<div class="meter-row"><span>Diction & Clarity</span><div class="bar"><div class="fill" style="width:${diction}%;background:#a855f7"></div></div><span class="score">${diction}</span></div>
+<div class="meter-row"><span>Global Articulation</span><div class="bar"><div class="fill" style="width:${artic}%;background:#38bdf8"></div></div><span class="score">${artic}</span></div>
+<div class="meter-row"><span>Metaphorical Sophistication</span><div class="bar"><div class="fill" style="width:${meta}%;background:#f59e0b"></div></div><span class="score">${meta}</span></div>
+<div style="margin-top:10px;font-size:11px;color:#aaa">✅ Eligible for Global Crossover Top 20: <b style="color:#1DB954">${total>=75?'YES — Rank #'+(Math.floor(Math.random()*8+1)):'NO — Need 75+ (you have '+total+')'}</b></div>
+</div>
+`;
+drawRadar(flow,diction,artic,meta);
+if(total>=75){tracks.push({name:artist,song:"New Entry",style:style,flow:flow,diction:diction,artic:artic,meta:meta}); renderTop20();}
+}
+function drawRadar(f,d,a,m){
+let c=document.getElementById('radar'); let ctx=c.getContext('2d');
+ctx.clearRect(0,0,c.width,c.height);
+ctx.strokeStyle="#222"; ctx.beginPath(); ctx.arc(160,110,80,0,Math.PI*2); ctx.stroke();
+ctx.beginPath(); ctx.arc(160,110,50,0,Math.PI*2); ctx.stroke();
+let vals=[f,d,a,m]; let labels=["FLOW","DICTION","GLOBAL","METAPHOR"];
+ctx.fillStyle="#1DB95488"; ctx.beginPath();
+vals.forEach((v,i)=>{
+let ang=(i*90-90)*Math.PI/180; let r=v/100*80;
+let x=160+Math.cos(ang)*r; let y=110+Math.sin(ang)*r;
+if(i==0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+});
+ctx.closePath(); ctx.fill(); ctx.strokeStyle="#1DB954"; ctx.stroke();
+ctx.fillStyle="#888"; ctx.font="10px Arial";
+labels.forEach((lb,i)=>{
+let ang=(i*90-90)*Math.PI/180; let x=160+Math.cos(ang)*90; let y=110+Math.sin(ang)*90;
+ctx.fillText(lb,x-20,y);
+});
+}
+renderTop20(); drawRadar(92,94,90,88);
+</script>
+</body>
+</html>

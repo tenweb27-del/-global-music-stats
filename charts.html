@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Charts - Global Music Stats</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#080808;z-index:20}
+a{color:#fff;text-decoration:none}
+.logo{font-weight:900;font-size:19px}.logo span{color:#1DB954}
+.archive select{background:#141414;color:#fff;border:1px solid #333;padding:8px 14px;border-radius:999px}
+.wrap{max-width:1150px;margin:auto;padding:20px}
+.title-row{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.title-row h1{font-size:30px}.title-row small{color:#888}
+.table-head{display:grid;grid-template-columns:42px 56px 1fr 90px 70px 70px 160px;gap:10px;padding:12px 14px;color:#666;font-size:11px;letter-spacing:1px;font-weight:800;border-bottom:1px solid #222}
+@media(max-width:900px){.table-head{display:none}}
+.row{background:#121212;border:1px solid #1e1e1e;border-radius:14px;margin-bottom:10px;overflow:hidden}
+.row-main{display:grid;grid-template-columns:42px 56px 1fr 90px 70px 70px 160px;gap:10px;align-items:center;padding:14px;cursor:pointer}
+@media(max-width:900px){.row-main{grid-template-columns:36px 48px 1fr 80px}}
+.m-num{font-weight:900;font-size:18px;color:#fff}
+.thumb{width:48px;height:48px;border-radius:8px;background:#222;overflow:hidden;display:grid;place-items:center;font-size:22px}
+.info b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info small{color:#888;font-size:12px}
+.stat{color:#aaa;font-size:13px;text-align:center}
+.stat b{color:#fff}
+.actions{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.ico{width:34px;height:34px;border-radius:999px;background:#1a1a1a;border:1px solid #2a2a2a;display:grid;place-items:center;cursor:pointer;font-size:14px}
+.ico.active{background:#1DB954;color:#000;border-color:#1DB954}
+.share{display:flex;gap:6px}
+.badge{display:inline-block;background:linear-gradient(90deg,#1DB954,#00d4ff);color:#000;font-size:10px;font-weight:900;padding:3px 7px;border-radius:999px;margin-left:6px}
+.bar-meter{display:none;padding:16px 18px;background:#0f0f0f;border-top:1px solid #1e1e1e}
+.bar-meter.open{display:block}
+.pillars{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:700px){.pillars{grid-template-columns:1fr}}
+.pillar{background:#161616;border:1px solid #222;border-radius:12px;padding:10px 12px}
+.pillar small{display:block;color:#777;font-size:10px;letter-spacing:0.8px;font-weight:800;margin-bottom:6px}
+.bar{height:8px;background:#222;border-radius:99px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,#1DB954,#a855f7)}
+.score{font-weight:900;margin-top:6px;font-size:13px}
+.elite{margin-top:10px;padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#1DB95422,#a855f722);border:1px solid #1DB95455;font-weight:800;font-size:12px}
+</style>
+</head>
+<body>
+    <script src="nav.js"></script>
+<header>
+<div class="logo"><a href="index.html">GLOBAL <span>MUSIC STATS</span></a></div>
+<div class="archive">
+Archive: <select id="dateFilter" onchange="filterDate()">
+<option>Week of Sep 23, 2026</option>
+<option>Week of Sep 16, 2026</option>
+<option>Week of Sep 09, 2026</option>
+<option>Week of Sep 02, 2026</option>
+</select>
+</div>
+</header>
+
+<div class="wrap">
+<div class="title-row">
+<div><h1>Top 50 Global Weekly</h1><small>Ranked by streams, likes, and lyrical score</small></div>
+<div><small>💎 = Elite Lyricist • Click any row to open Bar Meter</small></div>
+</div>
+
+<div class="table-head">
+<div>#</div><div></div><div>TITLE / ARTIST</div><div>LAST WEEK</div><div>PEAK</div><div>WEEKS</div><div>ACTIONS</div>
+</div>
+
+<div id="list"></div>
+</div>
+
+<script>
+const songs=[
+{t:"Not Like Us",a:"Kendrick Lamar",lw:2,peak:1,wks:18,scores:[9.8,9.6,9.2,9.7,9.5,9.9]},
+{t:"Otan",a:"Sarkodie",lw:1,peak:1,wks:22,scores:[9.7,9.4,9.5,9.3,9.6,9.2]},
+{t:"Espresso",a:"Sabrina Carpenter",lw:3,peak:2,wks:14,scores:[7.2,6.8,7.5,6.9,8.1,5.5]},
+{t:"Lonely At The Top",a:"Asake",lw:5,peak:1,wks:20,scores:[8.5,8.8,8.2,8.9,8.0,7.8]},
+{t:"Terminator",a:"King Promise",lw:4,peak:3,wks:16,scores:[7.8,7.5,8.0,8.2,7.9,6.8]},
+{t:"Beautiful Things",a:"Benson Boone",lw:6,peak:2,wks:19,scores:[7.0,6.5,7.1,7.3,7.8,6.0]},
+{t:"Amapiano",a:"Asake & Olamide",lw:8,peak:4,wks:12,scores:[8.1,8.3,8.4,7.9,8.2,7.5]},
+{t:"IDGAF",a:"Dua Lipa",lw:7,peak:5,wks:15,scores:[6.9,6.2,7.0,6.8,7.5,5.9]},
+{t:"Kweku Ananse",a:"Amerado",lw:10,peak:6,wks:9,scores:[9.2,9.0,8.9,9.1,8.8,8.5]},
+{t:"Sprinter",a:"Central Cee & Dave",lw:9,peak:2,wks:21,scores:[8.8,8.9,8.6,8.4,8.7,7.9]},
+];
+while(songs.length<50){
+let base=songs[songs.length%10];
+songs.push({t:base.t+" (Remix "+(songs.length+1)+")",a:base.a,lw:Math.floor(Math.random()*30)+1,peak:Math.floor(Math.random()*10)+1,wks:Math.floor(Math.random()*20)+1,scores:base.scores.map(v=>+(v-(Math.random()*0.6)).toFixed(1))});
+}
+const pillars=["Rhyme Schemes","Punchline / Wordplay","Breath Control","Lyrical Depth","Bar Count","Social Consciousness"];
+
+function avg(arr){return (arr.reduce((x,y)=>x+y,0)/arr.length).toFixed(1)}
+
+function render(){
+let html="";
+songs.forEach((s,i)=>{
+let isElite=avg(s.scores)>=8.5;
+let badge=isElite?`<span class="badge">Elite Lyricist 💎</span>`:"";
+document.getElementById('list').innerHTML;
+let meterId="meter-"+i;
+html+=`
+<div class="row" id="row-${i}">
+<div class="row-main" onclick="toggleMeter('${meterId}')">
+<div class="m-num">${i+1}</div>
+<div class="thumb">🎵</div>
+<div class="info"><b>${s.t} ${badge}</b><small>${s.a}</small></div>
+<div class="stat"><b>${s.lw}</b><br><span style="font-size:10px">LW</span></div>
+<div class="stat"><b>${s.peak}</b></div>
+<div class="stat"><b>${s.wks}</b></div>
+<div class="actions" onclick="event.stopPropagation()">
+<div class="ico" onclick="like(this)">♡</div>
+<div class="ico" onclick="follow(this)">+</div>
+<div class="share">
+<div class="ico" onclick="shareWA('${s.t} - ${s.a}')">W</div>
+<div class="ico" onclick="shareX('${s.t} - ${s.a}')">X</div>
+<div class="ico" onclick="shareTT('${s.t} - ${s.a}')">T</div>
+</div>
+</div>
+</div>
+<div class="bar-meter" id="${meterId}">
+<div class="pillars">
+${s.scores.map((score,j)=>`<div class="pillar"><small>${pillars[j]}</small><div class="bar"><div class="fill" style="width:${score*10}%"></div></div><div class="score">${score}/10 • Avg ${avg(s.scores)}</div></div>`).join('')}
+</div>
+${isElite?`<div class="elite">💎 This track scores ${avg(s.scores)}/10 average - Certified Elite Lyricist for exceptional rhyme, depth, and social impact.</div>`:""}
+</div>
+</div>
+`;
+});
+document.getElementById('list').innerHTML=html;
+}
+function toggleMeter(id){let el=document.getElementById(id);el.classList.toggle('open')}
+function like(el){el.classList.toggle('active');el.innerText=el.classList.contains('active')?'♥':'♡'}
+function follow(el){el.classList.toggle('active');el.innerText=el.classList.contains('active')?'✓':'+'}
+function shareWA(text){window.open('https://wa.me/?text='+encodeURIComponent('🔥 #'+text+' is trending on Global Music Stats! Check Top 50: '),'_blank')}
+function shareX(text){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('🔥 '+text+' trending on Global Music Stats #GlobalMusicStats'),'_blank')}
+function shareTT(text){navigator.clipboard.writeText(text+' - Global Music Stats');alert('Link copied! Paste on TikTok')}
+function filterDate(){alert('Archive filter: Showing '+document.getElementById('dateFilter').value)}
+render();
+</script>
+</body>
+</html>

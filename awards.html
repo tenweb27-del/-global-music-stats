@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diamond CHAINz Music Awards - DCMA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#050505;z-index:20}
+.logo{font-weight:900;letter-spacing:1px}.logo span{color:#d4af37}
+.hero{background:radial-gradient(600px 300px at 50% 0%, #d4af3744, transparent),linear-gradient(180deg,#111,#050505);padding:28px 22px;text-align:center;border-bottom:1px solid #1a1a1a}
+.hero h1{font-size:34px;letter-spacing:1px}.hero h1 span{color:#d4af37}.hero p{color:#aaa;font-size:13px;margin-top:8px}
+.countdown{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.cd{background:#121212;border:1px solid #222;padding:8px 14px;border-radius:12px;font-weight:900;font-size:13px}
+.cd b{color:#d4af37}
+.cats{display:flex;gap:8px;overflow:auto;padding:14px 22px;position:sticky;top:56px;background:#050505;z-index:10}
+.cats button{background:#121212;border:1px solid #222;color:#fff;padding:8px 14px;border-radius:999px;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer}
+.cats button.active{background:#d4af37;color:#000;border-color:#d4af37}
+.wrap{max-width:1300px;margin:auto;padding:18px 22px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,#141414,#0f0f0f);border:1px solid #222;border-radius:18px;padding:12px;position:relative;overflow:hidden}
+.card:hover{border-color:#d4af37}
+.badge{position:absolute;top:10px;left:10px;background:#d4af37;color:#000;font-size:9px;font-weight:900;padding:4px 8px;border-radius:999px}
+.thumb{height:160px;background:#1a1a1a;border-radius:12px;display:grid;place-items:center;font-size:48px;position:relative}
+.play{position:absolute;bottom:8px;right:8px;background:#fff;color:#000;width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-size:14px}
+.info{padding:10px 2px}
+.info b{font-size:14px}.info small{color:#888;font-size:11px;display:block;margin:2px 0}
+.votes{font-size:11px;color:#d4af37;font-weight:800;margin-top:4px}
+.actions{display:flex;gap:6px;margin-top:10px}
+.btn{flex:1;padding:9px;border-radius:999px;font-weight:900;font-size:11px;cursor:pointer;border:0}
+.btn-free{background:#1a1a1a;color:#fff;border:1px solid #2a2a2a}.btn-free:disabled{opacity:.5}
+.btn-prem{background:linear-gradient(90deg,#d4af37,#f59e0b);color:#000}
+/* Drawer */
+.drawer{position:fixed;right:0;top:0;width:420px;max-width:92vw;height:100vh;background:#101010;border-left:1px solid #222;z-index:100;transform:translateX(100%);transition:.3s;padding:18px;overflow:auto}
+.drawer.open{transform:translateX(0)}
+.overlay{position:fixed;inset:0;background:#000a;z-index:90;display:none}.overlay.open{display:block}
+.bundle{border:1px solid #222;background:#0f0f0f;border-radius:14px;padding:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.bundle.best{border-color:#d4af37;background:linear-gradient(90deg,#d4af3715,#f59e0b15)}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.pay div{background:#0f0f0f;border:1px solid #222;border-radius:10px;padding:10px;font-size:11px;text-align:center;font-weight:800}
+</style>
+</head>
+<body>
+    <script src="nav.js"></script>
+<header>
+<div class="logo">DIAMOND <span>CHAINz</span> MUSIC AWARDS • DCMA</div>
+<div style="display:flex;gap:8px"><a href="index.html" style="background:#1a1a1a;padding:8px 12px;border-radius:999px;color:#fff;text-decoration:none;font-size:12px">Home</a><a href="accelerator.html" style="background:#1a1a1a;padding:8px 12px;border-radius:999px;color:#fff;text-decoration:none;font-size:12px">Accelerator</a></div>
+</header>
+
+<div class="hero">
+<p style="letter-spacing:3px;color:#d4af37;font-weight:900;font-size:11px">OFFICIAL ANNUAL AWARDS • EVERY 9TH NOVEMBER</p>
+<h1>DIAMOND <span>CHAINz</span> MUSIC AWARDS</h1>
+<p>The world's first data-driven awards for independent & underground kings. 100% Fan Votes + Streams + Lyrical Score.</p>
+<div class="countdown" id="countdown"></div>
+</div>
+
+<div class="cats" id="cats"></div>
+<div class="wrap"><div class="grid" id="grid"></div></div>
+
+<!-- PREMIUM VOTE DRAWER -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3>💎 Premium Vote Hub</h3><button onclick="closeDrawer()" style="background:#1a1a1a;color:#fff;border:0;padding:6px 10px;border-radius:999px">✕</button></div>
+<p style="color:#888;font-size:12px;margin:8px 0" id="drawerFor">For: Sarkodie - Artist of the Year</p>
+
+<div style="background:#1a1a1a;border-radius:12px;padding:10px;font-size:12px">
+🔒 Secure checkout • Instant vote credit • Anti-cheat verified
+</div>
+
+<div style="margin-top:14px">
+<b style="font-size:13px">Choose Bulk Voting Bundle (Global Payments)</b>
+<div style="margin-top:8px">
+<div class="bundle"><div><b>10 Premium Votes</b><small style="display:block;color:#888">Starter Push</small></div><div style="text-align:right"><b>$2.99</b><br><button class="btn btn-prem" style="padding:6px 12px" onclick="pay('10 Votes $2.99')">Buy</button></div></div>
+<div class="bundle best"><div><b>40 Premium Votes</b><small style="display:block;color:#888">Most Popular 🔥 +5 Bonus</small></div><div style="text-align:right"><b>$9.99</b><br><button class="btn btn-prem" style="padding:6px 12px" onclick="pay('40 Votes $9.99')">Buy</button></div></div>
+<div class="bundle"><div><b>100 Premium Votes</b><small style="display:block;color:#888">Viral Domination +20 Bonus</small></div><div style="text-align:right"><b>$19.99</b><br><button class="btn btn-prem" style="padding:6px 12px" onclick="pay('100 Votes $19.99')">Buy</button></div></div>
+<div class="bundle"><div><b>300 Premium Votes</b><small style="display:block;color:#888">Diamond Army +80 Bonus</small></div><div style="text-align:right"><b>$49.99</b><br><button class="btn btn-prem" style="padding:6px 12px" onclick="pay('300 Votes $49.99')">Buy</button></div></div>
+</div>
+</div>
+
+<b style="display:block;margin-top:16px;font-size:12px">Global Payment Options — No Limitations</b>
+<div class="pay">
+<div>💳 Stripe (Worldwide)</div><div>🅿️ PayPal</div>
+<div>💜 Paystack (NG/GH)</div><div>📱 MTN MoMo / Telecel / Airtel</div>
+<div>🍎 Apple Pay</div><div>📲 Google Pay</div>
+<div>💵 USSD • Bank Transfer</div><div>₿ Crypto (USDT)</div>
+</div>
+
+<div style="margin-top:14px;background:#d4af3715;border:1px solid #d4af37;border-radius:12px;padding:10px;font-size:11px;color:#d4af37">
+💡 Premium votes = 10x weight vs free vote. Leaderboard updates instantly. Revenue funds Accelerator prize package.
+</div>
+
+<button class="btn" style="width:100%;background:#1a1a1a;color:#fff;margin-top:12px;padding:12px" onclick="closeDrawer()">Continue Free Voting</button>
+</div>
+
+<script>
+let categories=["All","Artist of the Year","Song of the Year","Best Underground Breakthrough","Best Lyrical Genius","Best Fan Army","Best Arena Freestyle"];
+let nominees=[
+{cat:"Artist of the Year",name:"Sarkodie",song:"Otan",votes:12450,photo:"👑"},
+{cat:"Artist of the Year",name:"Asake",song:"Lonely At The Top",votes:11820,photo:"🚀"},
+{cat:"Artist of the Year",name:"Kendrick Lamar",song:"Not Like Us",votes:10900,photo:"💎"},
+{cat:"Song of the Year",name:"King Promise",song:"Terminator",votes:9800,photo:"🔥"},
+{cat:"Song of the Year",name:"Amerado",song:"Kwaku Ananse",votes:9200,photo:"🎤"},
+{cat:"Best Underground Breakthrough",name:"Kwesi Slay GH",song:"Kumerica Drill",votes:5400,photo:"⚡"},
+{cat:"Best Underground Breakthrough",name:"Teni NG",song:"Lagos Freestyle",votes:5100,photo:"🌍"},
+{cat:"Best Lyrical Genius",name:"Lyrical Joe GH",song:"5th August",votes:8800,photo:"🧠"},
+{cat:"Best Fan Army",name:"SarkNation",song:"Fan Base",votes:15200,photo:"👑"},
+{cat:"Best Arena Freestyle",name:"Central Cee Type",song:"60s Drill Challenge",votes:4300,photo:"🎬"},
+];
+let activeCat="All";
+let votedToday=JSON.parse(localStorage.getItem('dcma_voted')||"{}");
+
+function renderCats(){
+document.getElementById('cats').innerHTML=categories.map(c=>`<button class="${activeCat===c?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('');
+}
+function setCat(c){activeCat=c;renderCats();renderGrid();}
+function renderGrid(){
+let list=activeCat==="All"?nominees:nominees.filter(n=>n.cat===activeCat);
+document.getElementById('grid').innerHTML=list.map((n,i)=>`
+<div class="card">
+<div class="badge">${n.cat}</div>
+<div class="thumb">${n.photo}<div class="play" onclick="alert('Playing clip: ${n.song} (demo)')">▶</div></div>
+<div class="info">
+<b>${n.name}</b><small>${n.song} • ${n.cat}</small>
+<div class="votes">🔥 ${n.votes.toLocaleString()} total votes</div>
+<div class="actions">
+<button class="btn btn-free" id="free-${i}" onclick="freeVote(${i},'${n.name}')">${votedToday[n.name]?'✓ Voted Today':'Cast 1 Free Daily Vote'}</button>
+<button class="btn btn-prem" onclick="openDrawer('${n.name} - ${n.cat}')">💎 Premium Vote Hub</button>
+</div>
+</div>
+</div>
+`).join('');
+}
+function freeVote(idx,name){
+if(votedToday[name]){alert('You already used your free daily vote for '+name+'. Come back tomorrow or use Premium Hub!');return}
+nominees[idx].votes+=1; votedToday[name]=true;
+localStorage.setItem('dcma_voted',JSON.stringify(votedToday));
+renderGrid();
+alert('✅ 1 Free vote cast for '+name+'! Premium votes give 10x weight.');
+}
+function openDrawer(forWho){
+document.getElementById('drawerFor').innerText='For: '+forWho;
+document.getElementById('drawer').classList.add('open');
+document.getElementById('overlay').classList.add('open');
+}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
+function pay(bundle){alert('Secure Checkout: '+bundle+' for '+document.getElementById('drawerFor').innerText+'\n\nMethods: Stripe / PayPal / Paystack / MTN MoMo / Apple Pay / Google Pay / Crypto\n\n(Demo) Votes credited instantly + leaderboard updated.');}
+
+function updateCountdown(){
+let next=new Date(new Date().getFullYear(),10,9); // Nov 9
+if(new Date()>next) next=new Date(next.getFullYear()+1,10,9);
+let diff=next-new Date();
+let d=Math.floor(diff/86400000); let h=Math.floor(diff%86400000/3600000);
+document.getElementById('countdown').innerHTML=`<div class="cd"><b>${d}</b> DAYS</div><div class="cd"><b>${h}</b> HRS</div><div class="cd"><b>9 NOV</b> • DCMA LIVE</div><div class="cd"><b>100%</b> FAN VOTED</div>`;
+}
+renderCats(); renderGrid(); updateCountdown(); setInterval(updateCountdown,60000);
+</script>
+</body>
+</html>

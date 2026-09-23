@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breakthrough Accelerator - Global Music Stats</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#080808;z-index:20}
+.logo{font-weight:900}.logo span{color:#1DB954}
+.banner{background:linear-gradient(90deg,#1DB954 0%,#a855f7 50%,#f59e0b 100%);color:#000;padding:18px 22px;position:relative;overflow:hidden}
+.banner h1{font-size:26px;line-height:1.1}.banner p{font-size:13px;font-weight:700;margin-top:6px;max-width:900px}
+.pill{display:inline-block;background:#000;color:#fff;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:1px;margin-bottom:8px}
+.wrap{max-width:1250px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}}
+.card{background:#121212;border:1px solid #1e1e1e;border-radius:18px;padding:16px;margin-bottom:14px}
+.prize-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media(max-width:600px){.prize-grid{grid-template-columns:1fr}}
+.prize{background:#0f0f0f;border:1px solid #222;border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center}
+.prize b{font-size:13px;display:block}.prize small{color:#888;font-size:11px}
+.score-bar{height:8px;background:#1a1a1a;border-radius:99px;overflow:hidden;margin-top:8px}
+.fill{height:100%}
+.contender{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:#0f0f0f;border:1px solid #1a1a1a;margin-bottom:10px}
+.contender.top{border-color:#1DB954;background:linear-gradient(90deg,#1DB95415,#a855f715)}
+.rank{width:34px;height:34px;border-radius:999px;background:#1a1a1a;display:grid;place-items:center;font-weight:900}
+.rank.gold{background:gold;color:#000}.rank.silver{background:silver;color:#000}
+.stats{display:flex;gap:12px;margin-top:6px}
+.stat small{display:block;color:#666;font-size:10px}.stat b{font-size:12px}
+.btn{border:0;padding:10px 16px;border-radius:999px;font-weight:900;cursor:pointer}
+.btn-green{background:#1DB954;color:#000}.btn-dark{background:#1a1a1a;color:#fff;border:1px solid #2a2a2a}
+.tag{font-size:10px;padding:3px 7px;border-radius:999px;font-weight:900}
+.tag-people{background:#1DB954;color:#000}.tag-industry{background:#a855f7;color:#fff}
+.quarter{display:flex;gap:8px;align-items:center;margin:12px 0}
+.quarter select{background:#121212;color:#fff;border:1px solid #2a2a2a;padding:8px 12px;border-radius:999px}
+</style>
+</head>
+<body>
+    v<script src="nav.js"></script>
+<header>
+<div class="logo"><a href="index.html" style="color:#fff;text-decoration:none">GLOBAL <span>MUSIC STATS</span></a> • ACCELERATOR</div>
+<div><a href="fans.html" style="background:#1a1a1a;padding:8px 14px;border-radius:999px;color:#fff;text-decoration:none;font-size:12px">← Fan Portal</a></div>
+</header>
+
+<div class="banner">
+<div class="pill">🚀 QUARTERLY INCUBATOR • Q4 2026 • 2 ARTISTS ONLY</div>
+<h1>THE BREAKTHROUGH ACCELERATOR — Launching 2 Underground Artists Into Mainstream Every Quarter</h1>
+<p>Ultimate Prize Package: Full funding for professionally produced 3-song EP • 2 high-budget music videos • Full PR & radio media tours (Ghana, Nigeria, US, UK) • Guaranteed main-stage performance slot at a major national music festival.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+<span style="background:#000;color:#fff;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800">💿 3-Song EP Funded</span>
+<span style="background:#000;color:#fff;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800">🎬 2 High-Budget Videos</span>
+<span style="background:#000;color:#fff;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800">📻 PR + Radio Tour</span>
+<span style="background:#000;color:#fff;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800">🎤 Main Stage Festival Slot</span>
+</div>
+</div>
+
+<div class="wrap">
+<div class="quarter">
+<b>Quarter:</b>
+<select id="qFilter" onchange="render()">
+<option>Q4 2026 — Current (Voting Live)</option>
+<option>Q3 2026 — Winners: Amerado & Teni</option>
+<option>Q2 2026 — Winners: Kwesi Arthur & Central Cee Type</option>
+</select>
+<span style="color:#1DB954;font-size:12px;font-weight:800">● LIVE TRACKING</span>
+</div>
+
+<div class="grid">
+<!-- LEFT - TOP CONTENDERS -->
+<div>
+<div class="card">
+<h3>🏆 Top Contenders Dashboard — Aggregated Score</h3>
+<p style="color:#666;font-size:11px;margin:6px 0">Formula: (Arena Wins x 40%) + (Fan Following x 35%) + (Editor Score x 25%)</p>
+<div id="contenders"></div>
+</div>
+
+<div class="card">
+<h3>How We Pick The 2 Winners</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+<div class="prize"><div style="font-size:22px">🗳️</div><div><b>The People's Choice (50%)</b><small>Consistent weekly Arena leaderboard wins • Upvotes • Viral velocity</small><div class="score-bar"><div class="fill" style="width:50%;background:#1DB954"></div></div></div></div>
+<div class="prize"><div style="font-size:22px">👑</div><div><b>Organic Fan Following (35%)</b><small>Followers on site • Fan base size • Weekly voting activity</small><div class="score-bar"><div class="fill" style="width:35%;background:#a855f7"></div></div></div></div>
+<div class="prize"><div style="font-size:22px">🎧</div><div><b>The Industry Pick (25%)</b><small>Editor panel selection • Lyrical score • Breakthrough potential</small><div class="score-bar"><div class="fill" style="width:25%;background:#f59e0b"></div></div></div></div>
+<div class="prize" style="border-color:#1DB954"><div style="font-size:22px">💎</div><div><b>Final 2 = Highest Combined</b><small>Exactly 2 artists launched every quarter — no politics</small><div class="score-bar"><div class="fill" style="width:100%;background:linear-gradient(90deg,#1DB954,#a855f7)"></div></div></div></div>
+</div>
+</div>
+</div>
+
+<!-- RIGHT - PRIZE & EDITOR PANEL -->
+<div>
+<div class="card" style="border-color:#f59e0b">
+<h3>🎁 Breakthrough Prize Package</h3>
+<div class="prize-grid">
+<div class="prize"><div style="font-size:20px">💿</div><div><b>3-Song EP Fully Funded</b><small>Pro studio, mixing, mastering — $5,000 value</small></div></div>
+<div class="prize"><div style="font-size:20px">🎬</div><div><b>2 High-Budget Videos</b><small>4K, director, location — $8,000 value</small></div></div>
+<div class="prize"><div style="font-size:20px">📻</div><div><b>PR & Radio Media Tour</b><small>Ghana, Nigeria, UK, US interviews + playlist pitching</small></div></div>
+<div class="prize"><div style="font-size:20px">🎤</div><div><b>Main-Stage Festival Slot</b><small>Guaranteed performance — AfroFuture / AfroNation type</small></div></div>
+</div>
+<button class="btn btn-green" style="width:100%;margin-top:12px" onclick="alert('Application: Submit your best 3 tracks + Arena link via submit.html to qualify for Q4 2026')">Apply For Accelerator →</button>
+</div>
+
+<div class="card">
+<h3>🎧 Editor Panel — Industry Pick Scores</h3>
+<div id="editors" style="margin-top:10px"></div>
+</div>
+
+<div class="card">
+<h3>⏳ Q4 2026 Timeline</h3>
+<div style="font-size:12px;line-height:1.8;color:#aaa">
+<b style="color:#fff">Oct 1 - Nov 15:</b> Tracking live — Arena wins + Fan growth<br>
+<b style="color:#fff">Nov 16:</b> Top 10 finalists announced<br>
+<b style="color:#fff">Nov 20:</b> Editor panel scores locked<br>
+<b style="color:#fff">Nov 30:</b> 2 Winners revealed LIVE on homepage + $13k prize package activated
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+let contenders=[
+{name:"Amerado GH",arenaWins:8,fans:6700,editor:92,img:"🎤",type:"People's Choice + Industry"},
+{name:"Kwesi Slay",arenaWins:7,fans:5900,editor:88,img:"🔥",type:"People's Choice"},
+{name:"Teni NG",arenaWins:6,fans:8100,editor:85,img:"🎵",type:"People's Choice"},
+{name:"Central Cee Type UK",arenaWins:5,fans:7200,editor:90,img:"🇬🇧",type:"Industry Pick"},
+{name:"Asake Clone",arenaWins:4,fans:6400,editor:87,img:"🚀",type:"Industry Pick"},
+{name:"Sarkodie Junior",arenaWins:3,fans:4800,editor:94,img:"💎",type:"Industry Pick"},
+];
+function calcScore(c){return Math.round((c.arenaWins/8*40)+(c.fans/8100*35)+(c.editor/100*25))}
+function render(){
+let html="";
+contenders.sort((a,b)=>calcScore(b)-calcScore(a)).forEach((c,i)=>{
+let score=calcScore(c);
+let isTop=i<2;
+html+=`
+<div class="contender ${isTop?'top':''}">
+<div class="rank ${i==0?'gold':i==1?'silver':''}">${i+1}</div>
+<div style="font-size:26px">${c.img}</div>
+<div style="flex:1">
+<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b>${c.name}</b> ${i<2?'<span class="tag tag-people">LEADING</span>':''} <span class="tag tag-industry">${c.type}</span></div>
+<div class="stats">
+<div class="stat"><small>ARENA WINS</small><b>${c.arenaWins} weeks</b></div>
+<div class="stat"><small>FAN FOLLOW</small><b>${c.fans.toLocaleString()}</b></div>
+<div class="stat"><small>EDITOR</small><b>${c.editor}/100</b></div>
+<div class="stat"><small>TOTAL</small><b style="color:#1DB954">${score}/100</b></div>
+</div>
+<div class="score-bar"><div class="fill" style="width:${score}%;background:${isTop?'linear-gradient(90deg,#1DB954,#a855f7)':'#333'}"></div></div>
+</div>
+<div><button class="btn ${isTop?'btn-green':'btn-dark'}" onclick="selectArtist('${c.name}')">${isTop?'🔥 Vote':'View'}</button></div>
+</div>
+`;
+});
+document.getElementById('contenders').innerHTML=html;
+document.getElementById('editors').innerHTML=contenders.map(c=>`
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:12px">
+<span>${c.name}</span><span style="color:#f59e0b;font-weight:900">${c.editor}/100 editor score</span>
+</div>
+`).join('');
+}
+function selectArtist(n){alert(n+' — Full profile aggregates:\n• Arena leaderboard history\n• Fan base growth\n• Editor notes\n\nVote in Arena + Join fan base to boost score!')}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artist Dashboard - Global Music Stats</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#080808;z-index:10}
+.logo{font-weight:900}.logo span{color:#1DB954}
+.wrap{max-width:900px;margin:auto;padding:22px}
+.progress{display:flex;gap:10px;margin:20px 0}
+.step-dot{flex:1;height:6px;background:#1a1a1a;border-radius:99px}
+.step-dot.active{background:#1DB954}
+.card{background:#121212;border:1px solid #1e1e1e;border-radius:18px;padding:22px;margin-top:14px}
+label{font-size:11px;color:#888;letter-spacing:1px;font-weight:800;display:block;margin:16px 0 6px}
+input,select,textarea{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#fff;padding:12px 14px;border-radius:12px;font-size:14px}
+input:focus,select:focus,textarea:focus{border-color:#1DB954;outline:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.row2{grid-template-columns:1fr}}
+.upload{border:2px dashed #2a2a2a;border-radius:14px;padding:22px;text-align:center;background:#0f0f0f;cursor:pointer;margin-top:8px}
+.upload:hover{border-color:#1DB954}
+.upload b{color:#1DB954}
+.btn{width:100%;background:#1DB954;color:#000;border:0;padding:14px;border-radius:999px;font-weight:900;font-size:15px;cursor:pointer;margin-top:18px}
+.btn-ghost{background:#1a1a1a;color:#fff;border:1px solid #2a2a2a}
+.hidden{display:none}
+.small{font-size:12px;color:#666;margin-top:6px}
+.preview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.preview div{background:#1a1a1a;padding:8px;border-radius:8px;font-size:11px;color:#888}
+</style>
+</head>
+<body>
+    <script src="nav.js"></script>
+<header>
+<div class="logo"><a href="index.html" style="color:#fff;text-decoration:none">GLOBAL <span>MUSIC STATS</span></a></div>
+<div><a href="charts.html" style="background:#1a1a1a;padding:8px 14px;border-radius:999px;font-size:12px;text-decoration:none;color:#fff">← Back to Charts</a></div>
+</header>
+
+<div class="wrap">
+<h1>Artist Submission Portal</h1>
+<p style="color:#888;margin-top:6px;font-size:13px">For independent & underground artists across all genres — US, UK, Nigeria, Ghana</p>
+
+<div class="progress">
+<div class="step-dot active" id="d1"></div>
+<div class="step-dot" id="d2"></div>
+<div class="step-dot" id="d3"></div>
+</div>
+
+<!-- STEP 1 -->
+<div class="card" id="step1">
+<h3>Step 1 — Artist Profile</h3>
+<label>ARTIST / BAND NAME *</label>
+<input id="artistName" placeholder="e.g. Sarkodie, Asake, King Promise">
+<div class="row2">
+<div><label>GENRE *</label>
+<select id="genre">
+<option>Select genre</option><option>Afrobeats</option><option>Hip-Hop / Rap</option><option>Drill</option><option>Amapiano</option><option>Highlife</option><option>R&B</option><option>Dancehall</option><option>Gospel</option><option>Other</option>
+</select></div>
+<div><label>COUNTRY *</label>
+<select id="country"><option>GHANA</option><option>NIGERIA</option><option>US</option><option>UK</option><option>OTHER</option></select></div>
+</div>
+<label>MANAGER / CONTACT EMAIL *</label>
+<input id="email" type="email" placeholder="manager@email.com">
+<label>BIO (Optional)</label>
+<textarea rows="3" placeholder="Short bio..."></textarea>
+<button class="btn" onclick="nextStep(2)">Continue → Song Details</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="card hidden" id="step2">
+<h3>Step 2 — Song Details</h3>
+<label>SONG TITLE *</label>
+<input id="songTitle" placeholder="e.g. Otan">
+<div class="row2">
+<div><label>RELEASE DATE *</label><input type="date"></div>
+<div><label>IS THIS A COLLAB?</label><select><option>No - Solo</option><option>Yes - Collaboration</option></select></div>
+</div>
+<label>SELECT PLATFORM WHERE STREAMS ARE FROM *</label>
+<select id="platform">
+<option>Select source platform</option><option>Audiomack</option><option>Boomplay</option><option>Spotify</option><option>Apple Music</option><option>YouTube / YouTube Music</option><option>Other</option>
+</select>
+<div class="row2">
+<div><label>TOTAL WEEKLY STREAMS *</label><input id="streams" type="number" placeholder="e.g. 125000"></div>
+<div><label>LINK TO SONG (Optional)</label><input placeholder="https://..."></div>
+</div>
+<p class="small">Numbers must match your proof upload in next step.</p>
+<div style="display:flex;gap:10px">
+<button class="btn btn-ghost" style="flex:1" onclick="nextStep(1)">← Back</button>
+<button class="btn" style="flex:2" onclick="nextStep(3)">Continue → Upload Proof</button>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="card hidden" id="step3">
+<h3>Step 3 — Verifiable Proof</h3>
+<p style="color:#888;font-size:13px">Upload screenshots or PDF exports of your backend creator dashboard. We verify before chart entry.</p>
+
+<label>UPLOAD SCREENSHOTS / PDF *</label>
+<div class="upload" onclick="document.getElementById('file').click()">
+<div style="font-size:28px">📤</div>
+<b>Click to upload or drag & drop</b>
+<div class="small">PNG, JPG, PDF up to 10MB each. Max 5 files.</div>
+<input type="file" id="file" hidden multiple accept=".png,.jpg,.jpeg,.pdf" onchange="showFiles(this)">
+<div class="preview" id="preview"></div>
+</div>
+
+<label style="margin-top:18px"><input type="checkbox" style="width:auto"> I confirm these numbers are real and I own rights to this music</label>
+
+<div style="display:flex;gap:10px">
+<button class="btn btn-ghost" style="flex:1" onclick="nextStep(2)">← Back</button>
+<button class="btn" style="flex:2" onclick="submitForm()">Submit for Verification ✓</button>
+</div>
+
+<div id="success" class="hidden" style="margin-top:16px;background:#1DB954;color:#000;padding:14px;border-radius:12px;font-weight:800">✅ Submitted! Your song is under review. You will appear on charts within 24h if verified.</div>
+</div>
+</div>
+
+<script>
+function nextStep(n){
+document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+document.getElementById('step'+n).classList.remove('hidden');
+document.querySelectorAll('.step-dot').forEach((d,i)=>{d.classList.toggle('active',i<n)});
+if(n===3){let a=document.getElementById('artistName').value;let s=document.getElementById('songTitle').value;console.log(a,s)}
+}
+function showFiles(input){
+let out=document.getElementById('preview');
+out.innerHTML="";
+for(let f of input.files){out.innerHTML+=`<div>📄 ${f.name}<br>${(f.size/1024).toFixed(1)}KB</div>`}
+}
+function submitForm(){
+let plat=document.getElementById('platform').value;
+let streams=document.getElementById('streams').value;
+if(!streams||plat.includes('Select')){alert('Please fill streams and platform');return}
+document.getElementById('success').classList.remove('hidden');
+}
+</script>
+</body>
+</html>

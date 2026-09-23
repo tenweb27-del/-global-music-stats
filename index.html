@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global Music Stats</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;flex-wrap:wrap;gap:12px}
+.filters button{background:#141414;color:#888;border:1px solid #2a2a2a;padding:7px 16px;border-radius:999px;cursor:pointer}
+.filters button.active{background:#fff;color:#000;font-weight:800}
+.hero{height:62vh;min-height:430px;background:linear-gradient(to top,#000,transparent), url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400');background-size:cover;display:flex;align-items:flex-end;padding:36px}
+.hero-badge{background:#1DB954;color:#000;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:900}
+.hero h1{font-size:60px;margin:12px 0 6px}.hero p{color:#bbb}
+.hero-btn{margin-top:16px;background:#fff;color:#000;border:0;padding:12px 26px;border-radius:999px;font-weight:900}
+.split{display:grid;grid-template-columns:1.2fr 0.8fr;gap:20px;padding:22px;max-width:1400px;margin:auto}
+@media(max-width:960px){.split{grid-template-columns:1fr}.hero h1{font-size:36px}}
+.box{background:#121212;border-radius:18px;padding:18px;border:1px solid #1e1e1e}
+.item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid #1c1c1c;align-items:center}
+.num{width:28px;color:#555;font-weight:900}.thumb{width:46px;height:46px;background:#222;border-radius:8px;display:grid;place-items:center}
+.info{flex:1}.info b{font-size:14px}.info small{color:#888;font-size:12px}
+.up{color:#1DB954}.down{color:#ff3b3b}.steady{color:#3b82f6}
+.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.news{height:145px;border-radius:14px;background-size:cover;position:relative}
+.news span{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,#000);padding:30px 10px 10px;font-weight:800;font-size:13px}
+.genius{margin-top:16px;background:linear-gradient(90deg,#1DB954,#a855f7);border-radius:14px;padding:14px 16px;color:#000;font-weight:800;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+    <script src="nav.js"></script>
+<header>
+<div><b>GLOBAL <span style="color:#1DB954">MUSIC STATS</span></b></div>
+<div class="filters">
+<button class="active" onclick="setCountry(event,'global')">GLOBAL</button>
+<button onclick="setCountry(event,'us')">US</button>
+<button onclick="setCountry(event,'uk')">UK</button>
+<button onclick="setCountry(event,'ng')">NIGERIA</button>
+<button onclick="setCountry(event,'gh')">GHANA</button>
+</div>
+</header>
+
+<section class="hero">
+<div>
+<div class="hero-badge">🔥 CURRENT #1 IN WORLD</div>
+<h1 id="hTitle">Not Like Us</h1>
+<p id="hArtist"><strong>Kendrick Lamar</strong> • US</p>
+<button class="hero-btn">▶ Listen Now</button>
+</div>
+</section>
+
+<div class="split">
+<div class="box"><h3>Top 10 Chart Preview</h3><div id="top10"></div></div>
+<div class="box">
+<h3>Trending Entertainment News</h3>
+<div class="news-grid">
+<div class="news" style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=500')"><span>Asake World Tour - Lagos to London</span></div>
+<div class="news" style="background-image:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500')"><span>Drake vs Kendrick New Twist</span></div>
+<div class="news" style="background-image:url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500')"><span>Ghana: Black Sherif Sold Out O2</span></div>
+<div class="news" style="background-image:url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=500')"><span>UK: Central Cee New Album</span></div>
+</div>
+<div class="genius"><div><small>LYRICAL GENIUS OF THE WEEK</small><div id="gName">Sarkodie - 98.5%</div></div><button>View</button></div>
+</div>
+</div>
+
+<script>
+const DATA={
+global:[{t:'Not Like Us',a:'Kendrick Lamar',c:'US',tr:'up'},{t:'Espresso',a:'Sabrina Carpenter',c:'US',tr:'up'},{t:'Beautiful Things',a:'Benson Boone',c:'UK',tr:'down'},{t:'Otan',a:'Sarkodie',c:'GH',tr:'up'},{t:'Lonely At The Top',a:'Asake',c:'NG',tr:'up'},{t:'Terminator',a:'King Promise',c:'GH',tr:'steady'},{t:'IDGAF',a:'Dua Lipa',c:'UK',tr:'down'},{t:'Amapiano',a:'Asake & Olamide',c:'NG',tr:'up'},{t:'Kweku Ananse',a:'Amerado',c:'GH',tr:'up'},{t:'Lovin On Me',a:'Jack Harlow',c:'US',tr:'steady'}],
+us:[{t:'Not Like Us',a:'Kendrick Lamar',c:'US',tr:'up'}],
+uk:[{t:'Beautiful Things',a:'Benson Boone',c:'UK',tr:'down'}],
+ng:[{t:'Lonely At The Top',a:'Asake',c:'NG',tr:'up'}],
+gh:[{t:'Otan',a:'Sarkodie',c:'GH',tr:'up'}]
+};
+function render(c){let list=DATA[c]||DATA.global;document.getElementById('top10').innerHTML=list.map((s,i)=>{let ic=s.tr==='up'?'▲':s.tr==='down'?'▼':'—';let cl=s.tr;return `<div class="item"><div class="num">${i+1}</div><div class="thumb">🎵</div><div class="info"><b>${s.t}</b><small>${s.a} • ${s.c}</small></div><div class="${cl}">${ic}</div></div>`}).join('')}
+function setCountry(e,c){document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');render(c)}
+render('global');
+</script>
+</body>
+</html>

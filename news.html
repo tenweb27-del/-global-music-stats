@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Music News & Archives - Global Music Stats</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:Georgia,Arial,sans-serif}
+header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#080808;z-index:20}
+.tabs{display:flex;gap:8px;overflow:auto;padding:12px 22px;position:sticky;top:56px;background:#080808;z-index:10;border-bottom:1px solid #1a1a1a}
+.tabs button{padding:8px 14px;border-radius:999px;border:1px solid #2a2a2a;background:#121212;color:#fff;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer}
+.tabs button.active{background:#1DB954;color:#000;border-color:#1DB954}
+.wrap{max-width:1300px;margin:auto;padding:20px}
+.blog{display:grid;grid-template-columns:2fr 0.9fr;gap:18px}
+@media(max-width:1000px){.blog{grid-template-columns:1fr}}
+.card{background:#121212;border:1px solid #1e1e1e;border-radius:18px;padding:16px;margin-bottom:14px}
+.cat{font-size:10px;padding:3px 8px;border-radius:999px;font-weight:900;letter-spacing:1px;display:inline-block;margin-bottom:6px}
+.cat-review{background:#1DB954;color:#000}.cat-interview{background:#a855f7;color:#fff}.cat-industry{background:#f59e0b;color:#000}.cat-event{background:#38bdf8;color:#000}
+.mission{background:linear-gradient(135deg,#1DB95415,#a855f715);border:1px solid #1DB95455;border-radius:18px;padding:18px}
+.mission h2{font-family:Arial;font-size:18px}.mission p{font-size:13px;line-height:1.6;color:#ccc;margin-top:8px}
+.archive-item{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#0f0f0f;border:1px solid #1a1a1a;border-radius:12px;margin-bottom:8px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:800px){.grid3{grid-template-columns:1fr}}
+.mag{height:220px;background:linear-gradient(180deg,#222,#111);border-radius:12px;display:grid;place-items:center;border:1px solid #2a2a2a;position:relative}
+.mag b{font-size:32px}
+.btn{border:0;padding:9px 14px;border-radius:999px;font-weight:900;cursor:pointer;font-size:12px}
+.btn-green{background:#1DB954;color:#000}.btn-dark{background:#1a1a1a;color:#fff;border:1px solid #2a2a2a}
+input,select{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#fff;padding:10px 12px;border-radius:10px;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:8px;border-bottom:1px solid #1a1a1a;text-align:left}
+.hidden{display:none}
+</style>
+</head>
+<body>
+    <script src="nav.js"></script>
+<header>
+<div style="font-weight:900;letter-spacing:1px">GLOBAL <span style="color:#1DB954">MUSIC STATS</span> • NEWS & ARCHIVES</div>
+<div><a href="index.html" style="background:#1a1a1a;padding:8px 12px;border-radius:999px;color:#fff;text-decoration:none;font-size:12px">Home</a></div>
+</header>
+
+<div class="tabs">
+<button class="active" onclick="tab('blog')" id="t-blog">📰 Blog & Features</button>
+<button onclick="tab('mission')" id="t-mission">🎯 Mission & Vision</button>
+<button onclick="tab('archives')" id="t-archives">🗄️ Annual Archives Vault</button>
+<button onclick="tab('print')" id="t-print">📚 Print Edition & Library</button>
+<button onclick="tab('method')" id="t-method">⚙️ Methodology</button>
+<button onclick="tab('data')" id="t-data">💾 Buy Data</button>
+</div>
+
+<div class="wrap">
+
+<!-- BLOG -->
+<div id="sec-blog">
+<div class="blog">
+<div>
+<div class="card"><span class="cat cat-review">MUSIC REVIEWS</span><h2>Sarkodie Otan — Lyrical Masterclass or Overrated? Data Says...</h2><small style="color:#888">Sep 20, 2026 • 4.2k reads</small><p style="color:#aaa;font-size:13px;margin-top:8px;line-height:1.6">We ran Otan through Bar Meter + Eloquence Meter. 92 Diction, 94 Metaphor, 12k verified points from YouTube + Boomplay + radio. Verdict: Top 3% globally...</p><button class="btn btn-dark" style="margin-top:8px">Read Full Review</button></div>
+<div class="card"><span class="cat cat-interview">ARTIST INTERVIEWS</span><h2>Amerado: "I Wrote Kwaku Ananse to Prove Ghana Can Compete Globally"</h2><small style="color:#888">Sep 18, 2026 • Exclusive</small><p style="color:#aaa;font-size:13px;margin-top:8px">The underground king talks Arena wins, Eloquence score 91, and how Accelerator changed his life...</p><button class="btn btn-dark" style="margin-top:8px">Watch Interview</button></div>
+<div class="card"><span class="cat cat-industry">INDUSTRY ANALYSIS</span><h2>How Payola Died in 2026 — Inside Our Unbribable Algorithm</h2><small style="color:#888">Sep 15, 2026 • Trending</small><p style="color:#aaa;font-size:13px;margin-top:8px">Traditional charts can be bought. Ours can't. Here's how streaming links + social buzz + radio + vetted submissions are aggregated...</p></div>
+<div class="card"><span class="cat cat-event">EVENT COVERAGE</span><h2>DCMA 2026: Diamond CHAINz Awards LIVE from Accra — 9th November</h2><small style="color:#888">Live Coverage • 9 Nov 2026</small><p style="color:#aaa;font-size:13px;margin-top:8px">Main stage, 12 categories, 100% fan votes. See nominees + Premium Vote Hub revenue report...</p></div>
+</div>
+<div>
+<div class="card"><h3>🔥 Trending Categories</h3><div style="display:flex;flex-direction:column;gap:6px;margin-top:10px"><button class="btn btn-dark">Music Reviews (42)</button><button class="btn btn-dark">Artist Interviews (18)</button><button class="btn btn-dark">Industry Analysis (27)</button><button class="btn btn-dark">Event Coverage (15)</button></div></div>
+<div class="mission"><h2>To eliminate bias</h2><p>Our charts are not opinions. They are data.</p></div>
+</div>
+</div>
+</div>
+
+<!-- MISSION -->
+<div id="sec-mission" class="hidden">
+<div class="mission" style="padding:28px">
+<h2 style="font-size:28px">About Our Mission</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px">
+<div><b style="color:#1DB954;font-size:14px;letter-spacing:1px">OUR MISSION</b><p>To eliminate bias and human error in the creative arts by deploying transparent, multi-metric data-tracking systems that empower artists, educate music executives, and provide the industry with an unbribable benchmark of impact.</p></div>
+<div><b style="color:#a855f7;font-size:14px;letter-spacing:1px">OUR VISION</b><p>To be the ultimate, data-driven authority for music charts and consumer metrics in the world, setting the global standard for how music excellence is tracked, ranked, and verified.</p></div>
+</div>
+<div style="margin-top:20px;display:flex;gap:10px"><span style="background:#1DB954;color:#000;padding:6px 12px;border-radius:999px;font-weight:900;font-size:11px">✓ 100% Data-Driven</span><span style="background:#a855f7;color:#fff;padding:6px 12px;border-radius:999px;font-weight:900;font-size:11px">✓ Unbribable</span><span style="background:#fff;color:#000;padding:6px 12px;border-radius:999px;font-weight:900;font-size:11px">✓ Global Standard</span></div>
+</div>
+</div>
+
+<!-- ARCHIVES -->
+<div id="sec-archives" class="hidden">
+<div class="card">
+<h3>🗄️ Annual Archives Vault — 12 Rolling Months</h3>
+<p style="color:#666;font-size:12px;margin:6px 0">Searchable, secure, industry reference. Every weekly chart, leaderboard, artist submission stored.</p>
+<input id="archSearch" placeholder="Search charts, e.g. Q3 2026, Sarkodie, Arena Week 12" oninput="filterArch()">
+<div id="archList" style="margin-top:12px"></div>
+</div>
+</div>
+
+<!-- PRINT -->
+<div id="sec-print" class="hidden">
+<div class="card">
+<h3>📚 Print Edition & Library Archive — Historical Preservation</h3>
+<div class="grid3" style="margin-top:12px">
+<div class="mag"><div><b>2025</b><div style="font-size:11px;color:#888">Year-End Magazine • Vol 1</div><button class="btn btn-dark" style="margin-top:8px">View Mockup</button></div></div>
+<div class="mag"><div><b>2026</b><div style="font-size:11px;color:#888">Year-End Magazine • Vol 2</div><button class="btn btn-green" style="margin-top:8px">Pre-Order Print</button></div></div>
+<div class="mag"><div><b>2027</b><div style="font-size:11px;color:#888">Upcoming • Q4</div><button class="btn btn-dark" style="margin-top:8px">Reserve</button></div></div>
+</div>
+<h3 style="margin-top:20px">🌍 Public Tracker — Libraries Housing Physical Copies</h3>
+<table style="margin-top:10px">
+<tr><th>Library</th><th>Country</th><th>Volumes</th><th>Status</th></tr>
+<tr><td>Balme Library, University of Ghana</td><td>Ghana</td><td>2025, 2026</td><td style="color:#1DB954">✓ Housed</td></tr>
+<tr><td>British Library, London</td><td>UK</td><td>2025, 2026</td><td style="color:#1DB954">✓ Housed</td></tr>
+<tr><td>Schomburg Center, New York</td><td>USA</td><td>2025, 2026</td><td style="color:#1DB954">✓ Housed</td></tr>
+<tr><td>University of Lagos Library</td><td>Nigeria</td><td>2026</td><td style="color:#f59e0b">In Transit</td></tr>
+<tr><td>KNUST Library, Kumasi</td><td>Ghana</td><td>2025, 2026</td><td style="color:#1DB954">✓ Housed</td></tr>
+</table>
+</div>
+</div>
+
+<!-- METHODOLOGY -->
+<div id="sec-method" class="hidden">
+<div class="card">
+<h3>⚙️ Methodology — Real-Time Data Analytics Engine & Algorithmic Chart Generator</h3>
+<p style="color:#aaa;font-size:13px;line-height:1.7;margin-top:8px">
+Our charts are <b style="color:#fff">not human-curated</b>. They are automated, unbribable, and transparent.<br><br>
+<b style="color:#1DB954">How Verified Points Are Aggregated:</b><br>
+1. <b>Audio Streaming Links</b> (40% weight): Spotify, Apple Music, Boomplay, Audiomack, YouTube Music — verified via API, anti-bot filtered<br>
+2. <b>Video Links</b> (20%): YouTube, TikTok, Reels views + completion rate<br>
+3. <b>Social Media Influencer Buzz</b> (15%): Mentions from vetted influencers (10k+ followers) tracked via listening engine<br>
+4. <b>Local Radio Airplay</b> (15%): Data from Ghana/Nigeria/UK/US radio monitors<br>
+5. <b>Vetted Independent Submissions</b> (10%): Arena upvotes, Fan Base votes, Eloquence scores, editorial QA<br><br>
+Formula: <code style="background:#0f0f0f;padding:2px 6px;border-radius:6px">Total Points = (Streams x 0.4) + (Video x 0.2) + (Buzz x 0.15) + (Radio x 0.15) + (Submissions x 0.1)</code><br>
+Deduplication, fraud detection, and 12-month archival vault ensure historical integrity.
+</p>
+</div>
+</div>
+
+<!-- BUY DATA -->
+<div id="sec-data" class="hidden">
+<div class="card">
+<h3>💾 Buy Data — For Organizations & Individuals</h3>
+<p style="color:#888;font-size:12px">Download verified chart data, leaderboard history, submission datasets. Price by size & year.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="archive-item"><div><b>Weekly Charts CSV</b><small style="display:block;color:#888">1 month • 50k rows</small></div><div style="text-align:right"><b>$19.99</b><br><button class="btn btn-green" onclick="buyData('Weekly Charts')">Buy & Download</button></div></div>
+<div class="archive-item"><div><b>Full Year Archive</b><small style="display:block;color:#888">12 months • 500k rows • 2025/2026</small></div><div style="text-align:right"><b>$149.99</b><br><button class="btn btn-green" onclick="buyData('Full Year')">Buy & Download</button></div></div>
+<div class="archive-item"><div><b>Artist Submissions Dataset</b><small style="display:block;color:#888">All vetted submissions + Eloquence scores</small></div><div style="text-align:right"><b>$79.99</b><br><button class="btn btn-green" onclick="buyData('Submissions')">Buy & Download</button></div></div>
+<div class="archive-item"><div><b>Enterprise API Access</b><small style="display:block;color:#888">Real-time JSON • 1M calls/month</small></div><div style="text-align:right"><b>$499/mo</b><br><button class="btn btn-green" onclick="buyData('Enterprise API')">Subscribe</button></div></div>
+</div>
+<p style="font-size:11px;color:#666;margin-top:10px">Payments: Stripe, PayPal, Paystack, MoMo, Apple Pay, Crypto. Instant download after payment. Academic discount 50% for universities/libraries.</p>
+</div>
+</div>
+
+</div>
+
+<script>
+function tab(name){
+['blog','mission','archives','print','method','data'].forEach(n=>{
+document.getElementById('sec-'+n).classList.toggle('hidden',n!==name);
+document.getElementById('t-'+n).classList.toggle('active',n===name);
+});
+}
+let archives=[
+{title:"Week 38 2026 Chart — Top 100",date:"Sep 15 2026",type:"Weekly Chart",size:"12k rows"},
+{title:"Arena Leaderboard Q3 2026",date:"Sep 10 2026",type:"Leaderboard",size:"8k rows"},
+{title:"Artist Submissions Batch #41",date:"Sep 12 2026",type:"Submissions",size:"142 tracks"},
+{title:"Week 37 2026 Chart — Top 100",date:"Sep 8 2026",type:"Weekly Chart",size:"12k rows"},
+{title:"Eloquence Top 20 — August 2026",date:"Aug 30 2026",type:"Eloquence",size:"20 rows"},
+{title:"Fan Base Activity — August",date:"Aug 31 2026",type:"Fan Data",size:"23k votes"},
+{title:"Week 12 2026 Chart — Top 100",date:"Mar 20 2026",type:"Weekly Chart",size:"12k rows"},
+{title:"2025 Year-End Archive",date:"Dec 31 2025",type:"Year-End",size:"600k rows"},
+];
+function renderArch(list){
+document.getElementById('archList').innerHTML=list.map(a=>`
+<div class="archive-item"><div><b>${a.title}</b><small style="display:block;color:#888">${a.date} • ${a.type} • ${a.size}</small></div><button class="btn btn-dark">View / Download</button></div>
+`).join('');
+}
+function filterArch(){
+let q=document.getElementById('archSearch').value.toLowerCase();
+renderArch(archives.filter(a=>a.title.toLowerCase().includes(q)||a.type.toLowerCase().includes(q)));
+}
+function buyData(name){alert('Checkout: '+name+'\nPrice depends on size & year\nMethods: Stripe / PayPal / Paystack / MoMo / Apple Pay / Crypto\n\nInstant download after payment (demo)');}
+renderArch(archives);
+</script>
+</body>
+</html>
